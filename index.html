@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Companydle — S&P 500 Guessing Game</title>
+  <meta name="description" content="Guess the S&P 500 company of the day in 8 tries." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="top">
+      <div class="brand">
+        <div class="logo">🏢</div>
+        <div>
+          <div class="title">Companydle</div>
+          <div class="subtitle">Guess the S&amp;P 500 company of the day in 8 tries.</div>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <button id="helpBtn" class="btn btn-secondary" type="button" aria-haspopup="dialog">How to play</button>
+        <button id="shareBtn" class="btn btn-secondary hidden" type="button">Share</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel">
+        <div class="guess-box">
+          <label class="sr-only" for="guessInput">Guess a company</label>
+          <input id="guessInput" type="text" autocomplete="off" placeholder="Type a company name or ticker…" />
+          <button id="guessBtn" class="btn btn-primary" type="button">Guess</button>
+
+          <div id="suggestions" class="suggestions" role="listbox" aria-label="Company suggestions"></div>
+        </div>
+
+        <div class="meta">
+          <div class="meta-item"><span class="meta-label">Date (New York):</span> <span id="today"></span></div>
+          <div class="meta-item"><span class="meta-label">Guesses:</span> <span id="attempts"></span></div>
+          <div class="meta-item"><span class="meta-label">Status:</span> <span id="status">Loading data…</span></div>
+        </div>
+      </section>
+
+      <section class="panel board">
+        <div class="row header" aria-hidden="true">
+          <div class="cell company">Company</div>
+          <div class="cell">Sector</div>
+          <div class="cell">HQ</div>
+          <div class="cell">Founded</div>
+          <div class="cell">Price</div>
+          <div class="cell">Market Cap</div>
+          <div class="cell">Employees</div>
+          <div class="cell">P/E</div>
+        </div>
+
+        <div id="rows" class="rows"></div>
+
+        <div class="board-note">
+          Green = correct bucket. Arrows show whether the correct answer is higher (▲) or lower (▼).
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div>
+          Data comes from <code>companies.json</code> in this repository (generated from your S&amp;P 500 spreadsheet).
+        </div>
+        <div class="small">
+          Tip: open this repository on GitHub and edit bucket ranges inside <code>app.js</code> anytime.
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Help dialog -->
+  <dialog id="helpDialog" class="dialog">
+    <div class="dialog-head">
+      <div class="dialog-title">How to play</div>
+      <button id="closeHelpBtn" class="btn btn-secondary" type="button">Close</button>
+    </div>
+    <div class="dialog-body">
+      <ol>
+        <li>Type a company name or ticker and submit a guess.</li>
+        <li>After each guess, you'll see attribute tiles.</li>
+        <li><strong>Green</strong> means your guess matches the answer in that bucket.</li>
+        <li>For number-based attributes, <strong>▲</strong> means the answer is higher; <strong>▼</strong> means lower.</li>
+        <li>You have <strong>8 guesses</strong> per day. The puzzle resets daily at midnight New York time.</li>
+      </ol>
+      <p class="small">
+        This is a simple, fully-static site (no logins). Your guesses are stored in your browser's local storage.
+      </p>
+    </div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,2 @@
+# Companydle
+Wordle for companies

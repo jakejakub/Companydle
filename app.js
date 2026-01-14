@@ -453,7 +453,7 @@ async function init() {
   const today = getTodayNY();
   todayEl.textContent = today;
 
-  const res = await fetch("companies.json", { cache: "no-store" });
+  const res = await fetch("./companies.json", { cache: "no-store" });
   companies = await res.json();
 
   companies = companies

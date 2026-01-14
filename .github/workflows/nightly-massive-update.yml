@@ -2,8 +2,8 @@ name: Nightly Massive Update
 
 on:
   schedule:
-    # GitHub Actions cron is interpreted in UTC. We will run at 04:08 and 05:08 UTC to cover midnight New York Time across DST changes.
-    - cron: "8, 4, 5 * * *"
+    # Runs at 04:08 and 05:08 UTC to cover midnight New York time across DST
+    - cron: "8 4,5 * * *"
   workflow_dispatch:
 
 permissions:
@@ -25,29 +25,21 @@ jobs:
         with:
           node-version: "20"
 
-     -  name: Run updater
+      - name: Run updater
         env:
-          Massive_API_KEY: ${{ secrets.MASSIVE_API_KEY }}
+          MASSIVE_API_KEY: ${{ secrets.MASSIVE_API_KEY }}
         run: node scripts/update-market-data.mjs
 
-     -  name: Commit and push if changed
+      - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           git add -A
-
-          if git diff --cached --quiet; then 
+          if git diff --cached --quiet; then
             echo "No changes to commit."
             exit 0
           fi
 
           git commit -m "Nightly update: price & market cap"
           git push
-
-
-
-
-          
-
-    
